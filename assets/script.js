@@ -10,6 +10,7 @@ function searchCity() {
     var searchCity = document.querySelector("#search-city").value;
     console.log(searchCity);
     currentWeather(searchCity);
+    getFiveDayForecast(searchCity);
 
     //  localStorage.setItem(searchCity, data);
 };
@@ -49,9 +50,18 @@ function currentWeather(searchCity) {
 
 };
 
-function getFiveDayForecast() {
+function getFiveDayForecast(searchCity) {
     var getFiveDayForecast = "https://api.openweathermap.org/data/2.5/forecast?q=" + searchCity + "&appid=" + apiKey + "&units=imperial";
 
+    fetch(getFiveDayForecast)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data);
+        })
+
+        $(".date")
     
 
 }
