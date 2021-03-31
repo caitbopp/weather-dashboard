@@ -2,7 +2,8 @@ var apiKey = "8f2df02f88c96d01519b05c729d9fa02"
 var searchBtn = document.querySelector("#search-button");
 var currentDisplay = document.querySelector("#current-weather");
 var searchHistory = document.querySelector(".search-history")
-// var searchCity = document.querySelector("#search-city");
+var cardRow = document.querySelector(".card-row");
+
 
 
 function searchCity() {
@@ -13,39 +14,46 @@ function searchCity() {
     //  localStorage.setItem(searchCity, data);
 };
 
-
+function getUVIndex(lat, lon) {
+    var getUVIndex = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey;
+    fetch(getUVIndex)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            $(".uvIndex").text(data.current.uvi);
+            console.log(data);
+        })
+}
 
 function currentWeather(searchCity) {
     var queryUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + searchCity + "&appid=" + apiKey + "&units=imperial";
+
 
     fetch(queryUrl)
         .then(function (response) {
             return response.json();
         })
-
         .then(function (data) {
             console.log(data);
 
-            var h2 = document.createElement("h2");
-            h2.textContent = data.name + " (" + moment().format("l") + ")";
+            var weatherIcon = data.weather[0].icon;
+            var iconUrl = "https://openweathermap.org/img/w/" + weatherIcon + ".png";
 
-            var temp = document.createElement("temp");
-            temp.textContent = "Temperature: " + data.main.temp;
-
-            var humidity = document.createElement("humidity");
-            humidity.textContent = "Humidity: " + data.main.humidity;
-
-            // var uvIndex = document.createElement("uvIndex");
-            // uvIndex.textContent = "UV Index: " + 
-
-            // Do callback for other API function here, because data is where I have lat./long.
-            currentDisplay.append(h2, temp, humidity);
-
-            // localStorage.setItem(searchCity, [h2, temp, humidity);
-        })
-
-
+            $(".current-city").html(data.name + " (" + moment().format("l") + ")");
+            $(".weather-icon").attr('src', iconUrl);
+            $(".temperature").text("Temperature: " + data.main.temp + "°F");
+            $(".humidity").text("Humidity: " + data.main.humidity + "%");
+            $(".uvIndex").text(data.current.uvi);
+        });
 
 };
+
+function getFiveDayForecast() {
+    var getFiveDayForecast = "https://api.openweathermap.org/data/2.5/forecast?q=" + searchCity + "&appid=" + apiKey + "&units=imperial";
+
+    
+
+}
 
 searchBtn.addEventListener("click", searchCity);
