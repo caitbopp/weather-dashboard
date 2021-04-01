@@ -5,5 +5,5 @@ The following is a weather dashboard that allows a user to search a city, and vi
 
 Link to Weather Dashboard: https://caitbopp.github.io/weather-dashboard/
 
-Preview of Weather Dashboard:
+Preview of Weather Dashboard: 
 <img src="./assets/screenshot.png">
