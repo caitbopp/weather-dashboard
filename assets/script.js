@@ -12,12 +12,10 @@ $(document).ready(function () {
     function searchCity() {
         var searchCity = document.querySelector("#search-city").value;
         console.log(searchCity);
+
         currentWeather(searchCity);
-        // Not working functions:
-
         getFiveDayForecast(searchCity);
-
-        //  localStorage.setItem(searchCity, data);
+        //localStorage.setItem(searchCity, data);
     };
 
     function currentWeather(searchCity) {
