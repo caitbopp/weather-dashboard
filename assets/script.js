@@ -5,9 +5,7 @@ $(document).ready(function () {
     var searchBtn = document.querySelector("#search-button");
     var currentDisplay = document.querySelector("#current-weather");
     var searchedWeather = [];
-    var cardRow = document.querySelector(".card-row");
-    var fiveDayForecast = document.querySelector("#five-day");
-    var uvi = "";
+
 
 
 
@@ -76,27 +74,22 @@ $(document).ready(function () {
 
                 for (var i = 0; i < results.length; i++) {
                     var column = $("<div>").attr("class", "col");
-                    var card = $("<div>").attr("class", "card");
+                    var card = $("<div>").attr("class", "card").css("background-color", "blue");
                     var cardBody = $("<div>").attr("class", "card-body");
                     var h3 = $("<h3>").text(results[i].dt_txt);
+                    
                     var weatherIcon = results[i].weather[0].icon;
                     var iconUrl = "https://openweathermap.org/img/w/" + weatherIcon + ".png";
-
                     var icon = $("<img>").attr('src', iconUrl);
-                    var temp = $("<p>").text("Temperature: " + results[i].main.temp + "°F");
+                    
+                    var temp = $("<p>").text("Temp: " + results[i].main.temp + "°F");
                     var humidity = $("<p>").text("Humidity: " + results[i].main.humidity + "%");
-                    var windSpeed = $("<p>").text("Wind Speed: " + results[i].wind.speed + " MPH");
 
-                    cardBody.append(h3, icon, temp, humidity, windSpeed);
+                    cardBody.append(h3, icon, temp, humidity);
                     card.append(cardBody);
                     column.append(card);
                     $("#five-day").append(column);
                 }
-
-
-
-             
-
 
             });
 
